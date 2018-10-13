@@ -2,33 +2,15 @@
  * Programmer: Henrik A. Christensen     Date Completed: in progress
  * Instructor: Kurt Nørmark              Class:          Imperative Programming
  * 
- * Coming soon...
+ * Refactor the original code using top-down programming style
 */
 
 #include <stdio.h>
 #include <math.h>
 
-/* Prints roots of the quadratic equation a * x*x + b * x + c = 0 */
-void solveQuadraticEquation(double a, double b, double c)
-{
-  double discriminant, root1, root2;
-
-  discriminant = b * b - 4 * a * c;
-
-  if (discriminant < 0)
-    printf("No roots\n");
-  else if (discriminant == 0)
-  {
-    root1 = -b/(2*a);
-    printf("One root: %f\n", root1);
-  }
-  else
-  {
-    root1 = (-b + sqrt(discriminant))/(2*a);
-    root2 = (-b - sqrt(discriminant))/(2*a);
-    printf("Two roots: %f and %f\n", root1, root2);
-  }
-}   
+void solveQuadraticEquation(double a, double b, double c);
+double calculate_discriminant(double a, double b, double c);
+double calculate_single_root(double a, double b);
 
 int main(void)
 {
@@ -48,4 +30,36 @@ int main(void)
   solveQuadraticEquation(g, h, i);  
 
   return 0;
+}
+
+/* Prints roots of the quadratic equation a * x*x + b * x + c = 0 */
+void solveQuadraticEquation(double a, double b, double c)
+{
+  double discriminant, root1, root2;
+
+  discriminant = calculate_discriminant(a, b, c);
+
+  if (discriminant < 0)
+    printf("No roots\n");
+  else if (discriminant == 0)
+  {
+    root1 = calculate_single_root(a, b);
+    printf("One root: %f\n", root1);
+  }
+  else
+  {
+    root1 = (-b + sqrt(discriminant))/(2*a);
+    root2 = (-b - sqrt(discriminant))/(2*a);
+    printf("Two roots: %f and %f\n", root1, root2);
+  }
+}
+
+double calculate_discriminant(double a, double b, double c)
+{
+  return b * b - 4 * a * c;
+}
+
+double calculate_single_root(double a, double b)
+{
+  return -b / (2 * a);
 }
