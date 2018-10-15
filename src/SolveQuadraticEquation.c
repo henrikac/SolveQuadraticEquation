@@ -8,9 +8,12 @@
 #include <stdio.h>
 #include <math.h>
 
+typedef enum { negative, positive } bool;
+
 void solveQuadraticEquation(double a, double b, double c);
 double calculate_discriminant(double a, double b, double c);
 double calculate_single_root(double a, double b);
+double calculate_roots(double a, double b, double discriminant, bool status);
 
 int main(void)
 {
@@ -48,8 +51,8 @@ void solveQuadraticEquation(double a, double b, double c)
   }
   else
   {
-    root1 = (-b + sqrt(discriminant))/(2*a);
-    root2 = (-b - sqrt(discriminant))/(2*a);
+    root1 = calculate_roots(a, b, discriminant, positive);
+    root2 = calculate_roots(a, b, discriminant, negative);
     printf("Two roots: %f and %f\n", root1, root2);
   }
 }
@@ -62,4 +65,12 @@ double calculate_discriminant(double a, double b, double c)
 double calculate_single_root(double a, double b)
 {
   return -b / (2 * a);
+}
+
+double calculate_roots(double a, double b, double discriminant, bool status)
+{
+  if (status == positive)
+    return (-b + sqrt(discriminant)) / (2 * a);
+  else
+    return (-b - sqrt(discriminant)) / (2 * a);
 }
