@@ -1,5 +1,5 @@
 /*
- * Programmer: Henrik A. Christensen     Date Completed: in progress
+ * Programmer: Henrik A. Christensen     Date Completed: 16-10-2018
  * Instructor: Kurt Nørmark              Class:          Imperative Programming
  * 
  * Refactor the original code using top-down programming style
