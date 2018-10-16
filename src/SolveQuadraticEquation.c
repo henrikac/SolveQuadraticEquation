@@ -8,12 +8,14 @@
 #include <stdio.h>
 #include <math.h>
 
-typedef enum { negative, positive } bool;
+#define INVALID_INPUT -1
+
+typedef enum { sub, add } bool;
 
 void solveQuadraticEquation(double a, double b, double c);
 double calculate_discriminant(double a, double b, double c);
 double calculate_single_root(double a, double b);
-double calculate_roots(double a, double b, double discriminant, bool status);
+double calculate_roots(double a, double b, double discriminant, bool add_or_sub);
 
 int main(void)
 {
@@ -30,7 +32,11 @@ int main(void)
   while (a != 0.0 || b != 0.0 || c != 0.0)
   {
     printf("Enter coeficients a, b, and c: ");
-    scanf("%lf %lf %lf", &a, &b, &c);
+    if (scanf("%lf %lf %lf", &a, &b, &c) != 3)
+    {
+      printf("Invalid input");
+      return INVALID_INPUT;
+    }
 
     if (a == 0)
     {
@@ -59,8 +65,8 @@ void solveQuadraticEquation(double a, double b, double c)
   }
   else
   {
-    root1 = calculate_roots(a, b, discriminant, positive);
-    root2 = calculate_roots(a, b, discriminant, negative);
+    root1 = calculate_roots(a, b, discriminant, add);
+    root2 = calculate_roots(a, b, discriminant, sub);
     printf("Two roots: %f and %f\n", root1, root2);
   }
 }
@@ -75,7 +81,7 @@ double calculate_single_root(double a, double b)
   return -b / (2 * a);
 }
 
-double calculate_roots(double a, double b, double discriminant, bool status)
+double calculate_roots(double a, double b, double discriminant, bool add_or_sub)
 {
-  return status == positive ? (-b + sqrt(discriminant)) / (2 * a) : (-b - sqrt(discriminant)) / (2 * a);
+  return add_or_sub == add ? (-b + sqrt(discriminant)) / (2 * a) : (-b - sqrt(discriminant)) / (2 * a);
 }
