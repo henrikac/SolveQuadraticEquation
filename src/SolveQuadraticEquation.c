@@ -18,8 +18,7 @@ double calculate_roots(double a, double b, double discriminant, bool status);
 int main(void)
 {
   double a = 1.0, b = -8.0, c = 15.0,
-         d = 2.0, e =  8.0, f =  2.0,
-         g, h, i;
+         d = 2.0, e =  8.0, f =  2.0;
 
   /* First call - coefficents are values of variables */
   solveQuadraticEquation(a, b, c);  
@@ -28,9 +27,19 @@ int main(void)
   solveQuadraticEquation(d - 1, -e, 7 * f + 1); 
 
   /* Third call - coefficents are entered by user outside solveQuadraticEquation */
-  printf("Enter coeficients a, b, and c: ");
-  scanf("%lf %lf %lf", &g, &h, &i);
-  solveQuadraticEquation(g, h, i);  
+  while (a != 0.0 || b != 0.0 || c != 0.0)
+  {
+    printf("Enter coeficients a, b, and c: ");
+    scanf("%lf %lf %lf", &a, &b, &c);
+
+    if (a == 0)
+    {
+      printf("Not a quadratic equation because a = 0\n");
+      continue;
+    }
+    
+    solveQuadraticEquation(a, b, c);    
+  }  
 
   return 0;
 }
@@ -46,8 +55,7 @@ void solveQuadraticEquation(double a, double b, double c)
     printf("No roots\n");
   else if (discriminant == 0)
   {
-    root1 = calculate_single_root(a, b);
-    printf("One root: %f\n", root1);
+    printf("One root: %f\n", calculate_single_root(a, b));
   }
   else
   {
@@ -69,8 +77,5 @@ double calculate_single_root(double a, double b)
 
 double calculate_roots(double a, double b, double discriminant, bool status)
 {
-  if (status == positive)
-    return (-b + sqrt(discriminant)) / (2 * a);
-  else
-    return (-b - sqrt(discriminant)) / (2 * a);
+  return status == positive ? (-b + sqrt(discriminant)) / (2 * a) : (-b - sqrt(discriminant)) / (2 * a);
 }
