@@ -10,12 +10,12 @@
 
 #define INVALID_INPUT -1
 
-typedef enum { sub, add } bool;
+typedef enum { sub, add } mathoperation;
 
 void solveQuadraticEquation(double a, double b, double c);
 double calculate_discriminant(double a, double b, double c);
 double calculate_single_root(double a, double b);
-double calculate_roots(double a, double b, double discriminant, bool add_or_sub);
+double calculate_roots(double a, double b, double discriminant, mathoperation add_or_sub);
 
 int main(void)
 {
@@ -81,7 +81,7 @@ double calculate_single_root(double a, double b)
   return -b / (2 * a);
 }
 
-double calculate_roots(double a, double b, double discriminant, bool add_or_sub)
+double calculate_roots(double a, double b, double discriminant, mathoperation add_or_sub)
 {
   return add_or_sub == add ? (-b + sqrt(discriminant)) / (2 * a) : (-b - sqrt(discriminant)) / (2 * a);
 }
